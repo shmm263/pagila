@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from .models import Film, Category, Customer
+from django.views import generic
+
+from .models import Film, Category, Customer, FilmList
 
 
 def index(request):
@@ -19,3 +21,11 @@ def index(request):
         context={'num_films': num_films, 'num_categories': num_categories,
                  'num_customers': num_customers},
     )
+
+class FilmListView(generic.ListView):
+    model = FilmList
+    template_name = 'app_pagila/film_list.html'
+
+class CustomerListView(generic.ListView):
+    model = Customer
+    template_name = 'app_pagila/custumer_list.html'

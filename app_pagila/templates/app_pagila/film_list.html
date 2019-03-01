@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>All Films</h1>
+
+{% if filmlist_list %}
+    <ul>
+      {% for film in filmlist_list %}
+      <li>
+        <a> {{film.title}}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no author in the library.</p>
+{% endif %}
+
+{% endblock %}

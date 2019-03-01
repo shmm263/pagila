@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>All Customers</h1>
+
+{% if customer_list %}
+    <ul>
+      {% for Customer in customer_list %}
+      <li>
+        <a> {{Customer.first_name}}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no author in the library.</p>
+{% endif %}
+
+{% endblock %}

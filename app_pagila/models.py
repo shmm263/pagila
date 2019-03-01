@@ -376,6 +376,12 @@ class Staff(models.Model):
     last_update = models.DateTimeField()
     picture = models.BinaryField(blank=True, null=True)
 
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return '%s, %s' % (self.last_name, self.first_name)
+
     class Meta:
         managed = False
         db_table = 'staff'
@@ -392,7 +398,7 @@ class Store(models.Model):
         db_table = 'store'
 
 class FilmList(models.Model):
-    film_id        = models.IntegerField()
+    fid            = models.IntegerField(primary_key=True)
     title          = models.CharField(max_length=255)
     description    = models.TextField()
     category       = models.CharField(max_length=25)
