@@ -145,6 +145,7 @@ class Customer(models.Model):
 
     class Meta:
         managed = False
+        ordering = ['last_name']
         db_table = 'customer'
 
 
@@ -227,7 +228,7 @@ class FilmActor(models.Model):
 
 class FilmCategory(models.Model):
     film = models.OneToOneField(Film, models.DO_NOTHING)
-    category = models.ForeignKey(Category, models.DO_NOTHING)
+    category = models.OneToOneField(Category, models.DO_NOTHING)
     last_update = models.DateTimeField()
 
     class Meta:
@@ -409,6 +410,7 @@ class FilmList(models.Model):
 
     class Meta:
         managed = False
+        ordering = ['title']
         db_table = 'film_list'
 
 
