@@ -1,5 +1,5 @@
 import django_tables2 as tables
-from .models import FilmList
+from .models import FilmList, CustomerList
 
 
 class FilmTables(tables.Table):
@@ -10,4 +10,14 @@ class FilmTables(tables.Table):
         # add class="paleblue" to <table> tag
         #attrs = {'class': 'paleblue'}
         #fields = ('first_name', 'addr_city', 'phone_mobile')
+        attrs = {"class": "table-striped table-bordered "}
+
+class CustomerTables(tables.Table):
+
+    class Meta:
+        model = CustomerList
+        template_name = 'django_tables2/bootstrap.html'
+        # add class="paleblue" to <table> tag
+        #attrs = {'class': 'paleblue'}
+        fields = ('name', 'address', 'zip_code', 'phone', 'city', 'country', 'notes', 'sid')
         attrs = {"class": "table-striped table-bordered "}

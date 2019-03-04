@@ -413,6 +413,22 @@ class FilmList(models.Model):
         ordering = ['title']
         db_table = 'film_list'
 
+class CustomerList(models.Model):
+    cid            = models.IntegerField(primary_key=True)
+    name           = models.TextField()
+    address        = models.CharField(max_length=50)
+    zip_code       = models.CharField(max_length=10)
+    phone          = models.CharField(max_length=20)
+    city           = models.CharField(max_length=50)
+    country        = models.CharField(max_length=50)
+    notes          = models.TextField()
+    sid            = models.SmallIntegerField()
+
+    class Meta:
+        managed = False
+        ordering = ['name']
+        db_table = 'customer_list1'
+
 
 
 

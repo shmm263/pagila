@@ -3,9 +3,9 @@ from django.views import generic
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
 
-from app_pagila.filters import PosteFilter
-from app_pagila.tables import FilmTables
-from .models import Film, Category, Customer, FilmList
+from app_pagila.filters import PosteFilter, PosteFilter1
+from app_pagila.tables import FilmTables, CustomerTables
+from .models import Film, Category, Customer, CustomerList, FilmList
 
 
 
@@ -43,6 +43,15 @@ class FilmListView1(SingleTableMixin, FilterView):
     model = FilmList
     template_name = 'app_pagila/filmtbl_list.html'
     filterset_class = PosteFilter
+    table_pagination = {
+        'per_page': 13
+    }
+
+class CustomerListView1(SingleTableMixin, FilterView):
+    table_class = CustomerTables
+    model = CustomerList
+    template_name = 'app_pagila/customertbl_list.html'
+    filterset_class = PosteFilter1
     table_pagination = {
         'per_page': 25
     }
