@@ -55,3 +55,11 @@ class CustomerListView1(SingleTableMixin, FilterView):
     table_pagination = {
         'per_page': 25
     }
+
+class FilmDetailView(generic.DetailView):
+    model = FilmList
+    template_name = 'app_pagila/filmlist_detail.html'
+
+class CustomerDetailView(generic.DetailView):
+    model = CustomerList
+    template_name = 'app_pagila/customerlistr_datail.html'
