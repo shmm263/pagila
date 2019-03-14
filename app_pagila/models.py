@@ -430,6 +430,19 @@ class CustomerList(models.Model):
         db_table = 'customer_list1'
 
 
+class Sales_by_store_by_category(models.Model):
+    nn           = models.IntegerField(primary_key=True)
+    store        = models.TextField()
+    manager      = models.TextField()
+    category     = models.CharField(max_length=25)
+    total_sales  = models.DecimalField(max_digits=5, decimal_places=2)
+
+    class Meta:
+        managed = False
+        ordering = ['total_sales']
+        db_table = 'sales_by_store_by_category'
+
+
 
 
 

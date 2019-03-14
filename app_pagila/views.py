@@ -1,12 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.views import generic
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
 
 from app_pagila.filters import PosteFilter, PosteFilter1
 from app_pagila.tables import FilmTables, CustomerTables
-from .models import Film, Category, Customer, CustomerList, FilmList
-
+from .models import Film, Category, Customer, CustomerList, FilmList, Sales_by_store_by_category
+from chartit import PivotDataPool, PivotChart
+from django.db.models import Sum
 
 
 def index(request):
@@ -60,6 +62,43 @@ class FilmDetailView(generic.DetailView):
     model = FilmList
     template_name = 'app_pagila/filmlist_detail.html'
 
+
 class CustomerDetailView(generic.DetailView):
     model = CustomerList
     template_name = 'app_pagila/customerlistr_datail.html'
+
+
+def rainfall_pivot_chart_view(request):
+    #Step 1: Create a PivotDataPool with the data we want to retrieve.
+    rainpivotdata = \
+        PivotDataPool(
+           series =
+            [{'options': {
+               'source': Sales_by_store_by_category.objects.all(),
+               'categories': ['store', 'manager'],
+               'legend_by': 'category'},
+              'terms': {
+                'sum_total_sales': Sum('total_sales'),
+                #'legend_by': ['category'],
+               # 'top_n_per_cat': 3
+              }}])
+
+    #Step 2: Create the PivotChart object
+    rainpivcht = \
+        PivotChart(
+            datasource = rainpivotdata,
+            series_options =
+              [{'options':{
+                  'type': 'column',
+                  'stacking': True},
+                'terms':[
+                  'sum_total_sales']}],
+            chart_options =
+              {'title': {
+                   'text': 'Rain by Month in top 3 cities'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Month'}}})
+
+    #Step 3: Send the PivotChart object to the template.
+    return render(request, 'app_pagila/Sales_store_category.html',{'rainpivchart': rainpivcht})
